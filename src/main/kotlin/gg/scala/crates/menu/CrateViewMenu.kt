@@ -16,6 +16,7 @@ import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
+import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
@@ -97,7 +98,9 @@ object CrateViewMenu
                                 }
                             } else
                             {
-                                CrateContentsMenu(crate).openMenu(player)
+                                Tasks.sync {
+                                    CrateContentsMenu(crate).openMenu(player)
+                                }
                             }
                         }
                 }

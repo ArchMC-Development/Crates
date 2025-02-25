@@ -10,5 +10,6 @@ class Crate(
     val uniqueId: String,
     var displayName: String,
     val prizes: MutableList<CratePrize>,
-    var applicable: Boolean = false
+    var applicable: Boolean = false,
+    var isSelectItem: Boolean = false
 )

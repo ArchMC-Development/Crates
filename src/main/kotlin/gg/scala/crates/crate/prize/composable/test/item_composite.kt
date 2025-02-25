@@ -5,6 +5,7 @@ import gg.scala.crates.crate.prize.CratePrizeRarity
 import gg.scala.crates.crate.prize.composable.CompositeCratePrize
 import gg.scala.crates.crate.prize.composable.CompositeCratePrizeEditSession
 import gg.scala.crates.crate.prize.composable.composite
+import gg.scala.crates.itemStackToBase64
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
 import net.evilblock.cubed.util.CC
@@ -20,12 +21,12 @@ import org.bukkit.inventory.ItemStack
  */
 class ItemCratePrize(
     name: String,
-    var internalMaterial: Material,
+    var internalStack: ItemStack,
     weight: Double,
     rarity: CratePrizeRarity,
     description: MutableList<String>
 ) : CratePrize(
-    name, ItemStack(internalMaterial), weight, description, rarity
+    name, itemStackToBase64(internalStack), weight, description, rarity
 )
 {
     override fun getAbstractType() = ItemCratePrize::class.java
@@ -33,14 +34,14 @@ class ItemCratePrize(
 
     override fun apply(player: Player): Player
     {
-        player.inventory.addItem(material)
+        player.inventory.addItem(this.getItemStack())
         return player
     }
 }
 
 class ItemCompositeCratePrizeEditSession(
     override var name: String = "some item",
-    var material: Material = Material.ACACIA_DOOR,
+    var material: ItemStack = ItemStack(Material.ACACIA_DOOR),
     override var weight: Double = 100.0,
     override var rarity: CratePrizeRarity = CratePrizeRarity.Common,
     override var description: MutableList<String> = mutableListOf()

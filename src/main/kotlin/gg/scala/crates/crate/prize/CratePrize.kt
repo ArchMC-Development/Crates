@@ -1,5 +1,6 @@
 package gg.scala.crates.crate.prize
 
+import gg.scala.crates.itemStackFromBase64
 import me.lucko.helper.random.Weighted
 import net.evilblock.cubed.serializers.impl.AbstractTypeSerializable
 import org.bukkit.Material
@@ -13,7 +14,7 @@ import java.util.function.UnaryOperator
  */
 abstract class CratePrize(
     var name: String,
-    val material: ItemStack,
+    val material: String,
     var weightInternal: Double,
     var description: MutableList<String>,
     var rarity: CratePrizeRarity = CratePrizeRarity.Common
@@ -21,4 +22,6 @@ abstract class CratePrize(
 {
     override fun getWeight() = this.weightInternal
     abstract fun applicableTo(player: Player): Boolean
+
+    fun getItemStack(): ItemStack = itemStackFromBase64(material)
 }

@@ -50,7 +50,7 @@ class CrateContentsMenu(
         for (prize in crate.prizes.sortedByDescending { it.weight })
         {
             buttons[buttons.size] = ItemBuilder
-                .copyOf(prize.material)
+                .copyOf(prize.getItemStack())
                 .name("${CC.B_AQUA}${prize.name}")
                 .apply {
                     if (prize.description.isEmpty())

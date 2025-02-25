@@ -3,6 +3,7 @@ package gg.scala.crates
 import gg.scala.commons.ExtendedScalaPlugin
 import gg.scala.commons.annotations.container.ContainerEnable
 import gg.scala.commons.core.plugin.Plugin
+import gg.scala.commons.core.plugin.PluginApiVersion
 import gg.scala.commons.core.plugin.PluginAuthor
 import gg.scala.commons.core.plugin.PluginDependency
 import gg.scala.commons.core.plugin.PluginDependencyComposite
@@ -20,6 +21,7 @@ import gg.scala.crates.keys.KeyProvider
 )
 @PluginAuthor("Scala")
 @PluginWebsite("https://scala.gg")
+@PluginApiVersion("1.20")
 @PluginDependencyComposite(
     PluginDependency("scala-commons"),
     PluginDependency("cloudsync", soft = true)

@@ -53,7 +53,7 @@ class CrateEditorContentsMenu(
         for (prize in crate.prizes.sortedByDescending { it.weight })
         {
             buttons[buttons.size] = ItemBuilder
-                .copyOf(prize.material)
+                .copyOf(prize.getItemStack())
                 .name("${CC.B_GOLD}${prize.name}")
                 .setUnbreakable(true)
                 .addToLore(
@@ -71,7 +71,7 @@ class CrateEditorContentsMenu(
 
                     addToLore("")
                     addToLore("${CC.WHITE}Rarity: ${CC.GOLD}${prize.rarity.name}")
-                    addToLore("${CC.WHITE}Material: ${CC.GOLD}${prize.material.type.name}")
+                    addToLore("${CC.WHITE}Material: ${CC.GOLD}${prize.getItemStack().type.name}")
                     addToLore("${CC.WHITE}Weight: ${CC.GOLD}${prize.weightInternal}")
                     addToLore("")
                     addToLore("${CC.GREEN}Click to edit!")

@@ -9,6 +9,7 @@ import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
 import gg.scala.crates.keyProvider
 import gg.scala.crates.menu.opening.CrateOpenMenu
+import gg.scala.crates.menu.opening.CrateSelectRewardOpenMenu
 import gg.scala.crates.sendToPlayer
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.service.Configure
@@ -16,6 +17,7 @@ import gg.scala.flavor.service.Service
 import net.evilblock.cubed.serializers.Serializers
 import net.evilblock.cubed.serializers.impl.AbstractTypeSerializer
 import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.entity.Player
 import java.io.File
 
@@ -55,7 +57,17 @@ object CrateService
 
         keyProvider().useKeyFor(player.uniqueId, crate.uniqueId)
             .thenRun {
-                CrateOpenMenu(player, crate).openMenu(player)
+                if (!crate.isSelectItem)
+                {
+                    Tasks.sync {
+                        CrateOpenMenu(player, crate).openMenu(player)
+                    }
+                } else
+                {
+                    Tasks.sync {
+                        CrateSelectRewardOpenMenu(player, crate).openMenu(player)
+                    }
+                }
             }
     }
 
@@ -133,3 +145,4 @@ object CrateService
             }
     }
 }
+
