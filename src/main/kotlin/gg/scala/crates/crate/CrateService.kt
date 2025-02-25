@@ -8,8 +8,7 @@ import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
 import gg.scala.crates.keyProvider
-import gg.scala.crates.menu.CrateOpenMenu
-import gg.scala.crates.player.CratesPlayerService
+import gg.scala.crates.menu.opening.CrateOpenMenu
 import gg.scala.crates.sendToPlayer
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.service.Configure

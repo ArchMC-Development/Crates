@@ -47,7 +47,7 @@ class CrateEditorMenu(
         val buttons = mutableMapOf<Int, Button>()
 
         buttons[10] = ItemBuilder
-            .of(Material.SIGN)
+            .of(Material.OAK_SIGN)
             .name("${CC.GREEN}Display Name")
             .addToLore(
                 "${CC.GRAY}Current:",
@@ -75,7 +75,7 @@ class CrateEditorMenu(
             }
 
         buttons[12] = ItemBuilder
-            .of(Material.GRILLED_PORK)
+            .of(Material.COOKED_PORKCHOP)
             .name("${CC.GREEN}Manage Items")
             .addToLore(
                 "${CC.GRAY}View all crate prizes.",

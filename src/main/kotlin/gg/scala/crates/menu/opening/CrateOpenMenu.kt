@@ -1,4 +1,4 @@
-package gg.scala.crates.menu
+package gg.scala.crates.menu.opening
 
 import gg.scala.commons.acf.ConditionFailedException
 import gg.scala.crates.configuration
@@ -183,7 +183,7 @@ class CrateOpenMenu(
                     player, "<cratePrizeName>" to this.selectedRandom.name
                 )
 
-                player.playSound(player.location, Sound.FIREWORK_LAUNCH, 1.0F, 1.0F)
+                player.playSound(player.location, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0F, 1.0F)
                 player.closeInventory()
 
                 Schedulers.sync()
@@ -202,7 +202,7 @@ class CrateOpenMenu(
             {
                 // shift last to first, pushes everything else forward
                 this.itemsRequired.removeFirst()
-                player.playSound(player.location, Sound.CLICK, 1.0F, 1.0F)
+                player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1.0F, 1.0F)
             }
         }
 
@@ -223,7 +223,7 @@ class CrateOpenMenu(
             if (this.crateRollStopped && index != 4)
             {
                 buttons[index] = Button.placeholder(
-                    Material.STAINED_GLASS_PANE,
+                    Material.LEGACY_STAINED_GLASS_PANE,
                     availableColors.random().toByte(),
                     "${CC.B_GOLD}You won!"
                 )

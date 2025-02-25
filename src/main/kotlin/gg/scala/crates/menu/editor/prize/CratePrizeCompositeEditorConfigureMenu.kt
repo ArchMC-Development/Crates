@@ -85,7 +85,7 @@ class CratePrizeCompositeEditorConfigureMenu(
                             .start(player)
                     },
                 ItemBuilder
-                    .of(Material.SIGN)
+                    .of(Material.OAK_SIGN)
                     .name("${CC.GREEN}Prize Description")
                     .addToLore("${CC.GRAY}Current:")
                     .apply {
@@ -155,7 +155,7 @@ class CratePrizeCompositeEditorConfigureMenu(
         for ((index, category) in mappings.withIndex())
         {
             buttons[(9 * (index + 1))] = ItemBuilder
-                .of(Material.STAINED_GLASS_PANE)
+                .of(Material.LEGACY_STAINED_GLASS_PANE)
                 .data((indexes[index]).toShort())
                 .name("${CC.AQUA}${category.first}")
                 .toButton()

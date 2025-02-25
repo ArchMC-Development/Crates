@@ -48,12 +48,12 @@ object CrateViewMenu
             )
             .map('Z') { _, _ ->
                 Button.placeholder(
-                    Material.STAINED_GLASS_PANE, 15, " "
+                    Material.BLACK_STAINED_GLASS_PANE, 0, " "
                 )
             }
             .map('X') { _, _ ->
                 Button.placeholder(
-                    Material.STAINED_GLASS_PANE, 3, " "
+                    Material.GRAY_STAINED_GLASS_PANE, 0, " "
                 )
             }
     }
