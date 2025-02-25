@@ -113,31 +113,35 @@ class CrateEditorViewMenu(
                     .toButton { _, type ->
                         if (type!!.isRightClick)
                         {
-                            ConfirmMenu(confirm = true) { option ->
-                                if (!option)
-                                {
-                                    configuration.crateDeletionQuit.sendToPlayer(player)
-
-                                    Tasks.delayed(1L)
+                            Tasks.sync {
+                                ConfirmMenu(confirm = true) { option ->
+                                    if (!option)
                                     {
-                                        openMenu(player)
+                                        configuration.crateDeletionQuit.sendToPlayer(player)
+
+                                        Tasks.delayed(1L)
+                                        {
+                                            openMenu(player)
+                                        }
+                                        return@ConfirmMenu
                                     }
-                                    return@ConfirmMenu
-                                }
 
-                                CrateService.allCrates()
-                                    .removeIf { crate ->
-                                        it.uniqueId == crate.uniqueId
-                                    }
+                                    CrateService.allCrates()
+                                        .removeIf { crate ->
+                                            it.uniqueId == crate.uniqueId
+                                        }
 
-                                CrateService.saveConfig()
+                                    CrateService.saveConfig()
 
-                                configuration.crateDeletionSuccess.sendToPlayer(player)
-                            }.openMenu(player)
+                                    configuration.crateDeletionSuccess.sendToPlayer(player)
+                                }.openMenu(player)
+                            }
                             return@toButton
                         }
 
-                        CrateEditorMenu(it, plugin).openMenu(player)
+                        Tasks.sync {
+                            CrateEditorMenu(it, plugin).openMenu(player)
+                        }
                     }
             }
 

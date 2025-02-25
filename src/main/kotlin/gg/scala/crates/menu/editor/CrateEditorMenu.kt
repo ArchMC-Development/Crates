@@ -83,7 +83,9 @@ class CrateEditorMenu(
                 "${CC.YELLOW}Click to manage!"
             )
             .toButton { _, _ ->
-                CrateEditorContentsMenu(crate, plugin).openMenu(player)
+                Tasks.sync {
+                    CrateEditorContentsMenu(crate, plugin).openMenu(player)
+                }
             }
 
         buttons[14] = ItemBuilder
@@ -115,7 +117,9 @@ class CrateEditorMenu(
                 "${CC.YELLOW}Click to add items!"
             )
             .toButton { _, _ ->
-                CratePrizeCompositeEditorContextMenu(crate, plugin, this).openMenu(player)
+                Tasks.sync {
+                    CratePrizeCompositeEditorContextMenu(crate, plugin, this).openMenu(player)
+                }
             }
 
         return buttons

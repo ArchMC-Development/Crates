@@ -52,9 +52,11 @@ class CratePrizeCompositeEditorContextMenu(
                     "${CC.GRAY}Click to use this as a template."
                 )
                 .toButton { _, _ ->
-                    CratePrizeCompositeEditorConfigureMenu(
-                        crate, plugin, composite, composite.createSession()
-                    ).openMenu(player)
+                    Tasks.sync {
+                        CratePrizeCompositeEditorConfigureMenu(
+                            crate, plugin, composite, composite.createSession()
+                        ).openMenu(player)
+                    }
                 }
         }
 

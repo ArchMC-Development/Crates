@@ -92,23 +92,25 @@ class CratePrizeCompositeEditorConfigureMenu(
                         addToLore(*session.description.toTypedArray())
                     }
                     .toButton { _, _ ->
-                        object : TextEditorMenu(session.description)
-                        {
-                            override fun getPrePaginatedTitle(player: Player) = "Edit prize description..."
-
-                            override fun onClose(player: Player)
+                        Tasks.sync {
+                            object : TextEditorMenu(session.description)
                             {
-                                this@CratePrizeCompositeEditorConfigureMenu.openMenu(player)
-                            }
+                                override fun getPrePaginatedTitle(player: Player) = "Edit prize description..."
 
-                            override fun onSave(player: Player, list: List<String>)
-                            {
-                                session.description.clear()
-                                session.description.addAll(list)
+                                override fun onClose(player: Player)
+                                {
+                                    this@CratePrizeCompositeEditorConfigureMenu.openMenu(player)
+                                }
 
-                                player.sendMessage("${CC.GREEN}Saved changes to description!")
-                            }
-                        }.openMenu(player)
+                                override fun onSave(player: Player, list: List<String>)
+                                {
+                                    session.description.clear()
+                                    session.description.addAll(list)
+
+                                    player.sendMessage("${CC.GREEN}Saved changes to description!")
+                                }
+                            }.openMenu(player)
+                        }
                     },
                 ItemBuilder
                     .of(Material.CHEST)

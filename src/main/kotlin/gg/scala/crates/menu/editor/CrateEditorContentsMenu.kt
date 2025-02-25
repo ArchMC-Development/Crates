@@ -80,11 +80,13 @@ class CrateEditorContentsMenu(
                     val mapping = CompositeCratePrizeService
                         .composites[prize::class]!!
 
-                    CratePrizeCompositeEditorConfigureMenu(
-                        this.crate, this.plugin, mapping,
-                        mapping.createSessionFromExisting(prize),
-                        prize, this
-                    ).openMenu(player)
+                    Tasks.sync {
+                        CratePrizeCompositeEditorConfigureMenu(
+                            this.crate, this.plugin, mapping,
+                            mapping.createSessionFromExisting(prize),
+                            prize, this
+                        ).openMenu(player)
+                    }
                 }
         }
 
