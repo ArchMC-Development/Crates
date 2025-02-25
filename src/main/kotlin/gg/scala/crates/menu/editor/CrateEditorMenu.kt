@@ -46,7 +46,7 @@ class CrateEditorMenu(
     {
         val buttons = mutableMapOf<Int, Button>()
 
-        buttons[10] = ItemBuilder
+        buttons[9] = ItemBuilder
             .of(Material.OAK_SIGN)
             .name("${CC.GREEN}Display Name")
             .addToLore(
@@ -74,7 +74,7 @@ class CrateEditorMenu(
                     .start(player)
             }
 
-        buttons[12] = ItemBuilder
+        buttons[11] = ItemBuilder
             .of(Material.COOKED_PORKCHOP)
             .name("${CC.GREEN}Manage Items")
             .addToLore(
@@ -88,7 +88,7 @@ class CrateEditorMenu(
                 }
             }
 
-        buttons[14] = ItemBuilder
+        buttons[13] = ItemBuilder
             .of(Material.GOLDEN_CARROT)
             .name("${CC.GREEN}Applicable status")
             .addToLore(
@@ -105,7 +105,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.applicable}")
             }
 
-        buttons[16] = ItemBuilder
+        buttons[15] = ItemBuilder
             .copyOf(
                 object : AddButton()
                 {}.getButtonItem(player)
@@ -120,6 +120,23 @@ class CrateEditorMenu(
                 Tasks.sync {
                     CratePrizeCompositeEditorContextMenu(crate, plugin, this).openMenu(player)
                 }
+            }
+
+        buttons[17] = ItemBuilder
+            .of(Material.BLAZE_POWDER)
+            .name("${CC.GREEN}Select Items")
+            .addToLore(
+                "${CC.GRAY}Allow players to select the items they want.",
+                "",
+                "${CC.WHITE}Current: ${CC.GREEN}${crate.isSelectItem}",
+                "",
+                "${CC.YELLOW}Click to toggle"
+            )
+            .toButton { _, _ ->
+                crate.isSelectItem = !crate.isSelectItem
+                CrateService.saveConfig()
+
+                player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
             }
 
         return buttons

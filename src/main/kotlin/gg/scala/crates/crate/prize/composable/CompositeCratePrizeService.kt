@@ -6,6 +6,7 @@ import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
+import net.evilblock.cubed.util.bukkit.Tasks
 import net.evilblock.cubed.util.bukkit.prompt.InputPrompt
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -79,6 +80,29 @@ object CompositeCratePrizeService
                                 menu.openMenu(player)
                             }
                             .start(player)
+                    }
+            }
+
+            button { session, menu ->
+                session as ItemCompositeCratePrizeEditSession
+
+                ItemBuilder
+                    .of(Material.BOOK)
+                    .name("${CC.GREEN}Use Held Item")
+                    .addToLore("${CC.GRAY}Current: ${CC.WHITE}${session.material.type.name}")
+                    .toButton { player, _ ->
+                        if (player!!.inventory.itemInMainHand.type == Material.AIR)
+                        {
+                            player.sendMessage("${CC.RED}You must be holding an item in order to add it!")
+                            return@toButton
+                        }
+
+                        session.material = player.inventory.itemInMainHand
+                        player.sendMessage("${CC.SEC}Set material to: ${CC.PRI}${session.material.type.name}")
+
+                        Tasks.sync {
+                            menu.openMenu(player)
+                        }
                     }
             }
         }
