@@ -232,7 +232,6 @@ class CrateOpenMenu(
 
             buttons[index] = ItemBuilder
                 .copyOf(prizeInIndex.getItemStack())
-                .setUnbreakable(true)
                 .name("${
                     if (crateRollStopped && index == 4) CC.B_GOLD else CC.AQUA
                 }${prizeInIndex.name}")

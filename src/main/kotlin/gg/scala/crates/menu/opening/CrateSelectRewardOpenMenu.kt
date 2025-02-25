@@ -33,7 +33,6 @@ class CrateSelectRewardOpenMenu(
         applicable.forEach {
             buttons[buttons.size] = ItemBuilder
                 .copyOf(it.getItemStack())
-                .setUnbreakable(true)
                 .name(
                     "${
                         CC.YELLOW

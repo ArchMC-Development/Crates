@@ -61,7 +61,6 @@ class CrateContentsMenu(
                         addToLore(*prize.description.toTypedArray())
                     }
                 }
-                .setUnbreakable(true)
                 .addToLore(
                     "",
                     "${CC.WHITE}Rarity: ${prize.rarity.chatColor}${prize.rarity.name}",
