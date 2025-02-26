@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:2.0.21"
 
     compileOnly "gg.scala.store:spigot:1.0.0"
     compileOnly "gg.scala.lemon:bukkit:1.9.4"
@@ -60,7 +60,7 @@ dependencies {
 
 compileKotlin {
     kotlinOptions.javaParameters = true
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "21"
 }
 
 shadowJar {
