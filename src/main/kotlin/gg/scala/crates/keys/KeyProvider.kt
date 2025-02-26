@@ -12,6 +12,6 @@ interface KeyProvider
 {
     fun getKeysFor(player: UUID, crate: Crate): Int
 
-    fun useKeyFor(player: UUID, crate: String): CompletableFuture<Void>
-    fun addKeysFor(player: UUID, crate: String, amount: Int): CompletableFuture<Void>
+    fun useKeyFor(player: UUID, crate: String)
+    fun addKeysFor(player: UUID, crate: String, amount: Int)
 }

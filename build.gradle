@@ -25,6 +25,16 @@ repositories {
 
     maven {
         name "Arch"
+        url "${property("artifactory_contextUrl")}/gradle-dev"
+
+        credentials {
+            username property("artifactory_user")
+            password property("artifactory_password")
+        }
+    }
+
+    maven {
+        name "Arch"
         url "${property("artifactory_contextUrl")}/gradle-release"
 
         credentials {
@@ -42,6 +52,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
 
     compileOnly "gg.scala.cloudsync:spigot:1.0.4"
+    compileOnly "lol.arch.survival.rootkit:bukkit:1.0.0"
 
     compileOnly "gg.scala.commons:bukkit:4.0.0"
     kapt "gg.scala.commons:bukkit:4.0.0"

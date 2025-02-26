@@ -24,6 +24,7 @@ import gg.scala.crates.keys.KeyProvider
 @PluginApiVersion("1.20")
 @PluginDependencyComposite(
     PluginDependency("scala-commons"),
+    PluginDependency("Rootkit"),
     PluginDependency("cloudsync", soft = true)
 )
 class CratesSpigotPlugin : ExtendedScalaPlugin()

@@ -1,24 +1,23 @@
 package gg.scala.crates.command
 
+import com.google.gson.JsonObject
 import gg.scala.commons.acf.CommandHelp
-import gg.scala.commons.acf.ConditionFailedException
-import gg.scala.commons.acf.annotation.CommandAlias
-import gg.scala.commons.acf.annotation.CommandCompletion
-import gg.scala.commons.acf.annotation.CommandPermission
-import gg.scala.commons.acf.annotation.Default
-import gg.scala.commons.acf.annotation.HelpCommand
-import gg.scala.commons.acf.annotation.Subcommand
-import gg.scala.commons.acf.bukkit.contexts.OnlinePlayer
+import gg.scala.commons.acf.annotation.*
 import gg.scala.commons.annotations.commands.AutoRegister
 import gg.scala.commons.command.ScalaCommand
 import gg.scala.crates.CratesSpigotPlugin
+import gg.scala.crates.configuration
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
 import gg.scala.crates.keyProvider
 import gg.scala.crates.menu.editor.CrateEditorViewMenu
-import gg.scala.crates.player.CratesPlayerService
+import gg.scala.crates.player.sync.SendCrateMessageAction
 import gg.scala.flavor.inject.Inject
+import gg.scala.lemon.player.wrapper.AsyncLemonPlayer
+import gg.scala.lemon.util.QuickAccess
+import lol.arch.survival.rootkit.action.PlayerActionDispatcher
 import net.evilblock.cubed.util.CC
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.concurrent.CompletableFuture
 
@@ -44,15 +43,31 @@ object CratesManageCommand : ScalaCommand()
     @Subcommand("give-key")
     @CommandCompletion("@players @crates")
     fun onGiveKey(
-        player: Player, target: OnlinePlayer,
+        player: CommandSender, target: AsyncLemonPlayer,
         crate: Crate, amount: Int
     ): CompletableFuture<Void>
     {
-        return keyProvider()
-            .addKeysFor(target.player.uniqueId, crate.uniqueId, amount)
-            .thenRun {
-                player.sendMessage("${CC.SEC}Gave ${target.player.displayName}${CC.SEC} ${CC.PRI}$amount${CC.SEC} crate keys.")
-            }
+        return target.validatePlayers(player, false) { lemonPlayer ->
+            keyProvider().addKeysFor(lemonPlayer.uniqueId, crate.uniqueId, amount)
+
+            player.sendMessage(
+                "${CC.SEC}Gave ${
+                    QuickAccess.computeColoredName(
+                        lemonPlayer.uniqueId,
+                        lemonPlayer.name
+                    )
+                }${CC.SEC} ${CC.PRI}$amount${CC.SEC} crate keys."
+            )
+
+            PlayerActionDispatcher.send(lemonPlayer.uniqueId, SendCrateMessageAction(), JsonObject().also {
+                it.addProperty(
+                    "message",
+                    configuration.crateBalanceChange.replace("<crateDisplayName>", crate.displayName)
+                        .replace("<amount>", amount.toString())
+                )
+            })
+        }
+
     }
 
     @Subcommand("control-panel")
@@ -62,7 +77,7 @@ object CratesManageCommand : ScalaCommand()
     }
 
     @Subcommand("reload-config")
-    fun onConfigReload(player: Player)
+    fun onConfigReload(player: CommandSender)
     {
         CrateService.loadConfig()
 
