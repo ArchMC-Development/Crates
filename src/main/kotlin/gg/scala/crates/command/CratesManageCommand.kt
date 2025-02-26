@@ -55,7 +55,7 @@ object CratesManageCommand : ScalaCommand()
                     QuickAccess.computeColoredName(
                         lemonPlayer.uniqueId,
                         lemonPlayer.name
-                    )
+                    ).join()
                 }${CC.SEC} ${CC.PRI}$amount${CC.SEC} crate keys."
             )
 
