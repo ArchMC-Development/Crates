@@ -19,15 +19,15 @@ object DefaultKeyProvider : KeyProvider
         return cratesPlayer.balances[crate.uniqueId] ?: 0
     }
 
-    override fun useKeyFor(player: UUID, crate: String)
+    override fun useKeyFor(player: UUID, crate: String): CompletableFuture<Void>
     {
         val cratesPlayer = CratesPlayerService.find(player)
-            ?: return
+            ?: return CompletableFuture.completedFuture(null)
 
         cratesPlayer.balances[crate] =
             (cratesPlayer.balances[crate] ?: 1) - 1
 
-        cratesPlayer.save().join()
+        return cratesPlayer.save()
     }
 
     override fun addKeysFor(player: UUID, crate: String, amount: Int)
