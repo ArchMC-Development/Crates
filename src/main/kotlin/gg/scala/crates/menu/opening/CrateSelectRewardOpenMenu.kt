@@ -18,6 +18,11 @@ class CrateSelectRewardOpenMenu(
     configuration.crateOpenTitle
 )
 {
+    init
+    {
+        autoUpdateInterval = 100L
+    }
+
     private val applicable = this.crate.prizes
         .shuffled()
         .filter {
