@@ -75,7 +75,7 @@ class CratePrizeCompositeEditorConfigureMenu(
                         player.closeInventory()
 
                         InputPrompt()
-                            .withText("${CC.GREEN}Enter a prize weight...")
+                            .withText("${CC.GREEN}Enter a new prize name...")
                             .acceptInput { _, text ->
                                 this.session.name = Color.translate(text)
                                 player.sendMessage("${CC.SEC}Set prize name to: ${CC.PRI}${this.session.name}")

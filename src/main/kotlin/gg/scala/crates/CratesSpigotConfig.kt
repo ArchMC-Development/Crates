@@ -38,7 +38,7 @@ class CratesSpigotConfig
 
     val crateBalanceHeader = "${CC.GRAY}Current crate key balance:"
     val crateBalanceEntry = " ${CC.AQUA}<crateDisplayName>: ${CC.WHITE}<crateKeyBalance>"
-    val crateBalanceChange = "${CC.YELLOW}You have just received ${CC.GREEN}<amount>x ${CC.WHITE}<crateDisplayName> ${CC.YELLOW}crates! Execute ${CC.AQUA}\"/crate menu\" ${CC.YELLOW}to open."
+    val crateBalanceChange = "${CC.YELLOW}You have just received ${CC.GREEN}<amount>x ${CC.YELLOW}of the ${CC.WHITE}<crateDisplayName> ${CC.YELLOW}crate! Execute ${CC.AQUA}\"/crate menu\" ${CC.YELLOW}to open."
 
     val crateWin = "${CC.GREEN}You won ${CC.SEC}<cratePrizeName>${CC.GREEN} from your crate roll!"
     val crateWinRefundSuccess = "${CC.RED}We are refunding your crate key as you closed the menu."

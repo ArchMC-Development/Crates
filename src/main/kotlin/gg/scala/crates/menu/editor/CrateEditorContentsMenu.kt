@@ -3,6 +3,7 @@ package gg.scala.crates.menu.editor
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.prize.composable.CompositeCratePrizeService
+import gg.scala.crates.crate.prize.composable.test.CommandCratePrize
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorConfigureMenu
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
@@ -72,6 +73,10 @@ class CrateEditorContentsMenu(
                     addToLore("${CC.WHITE}Rarity: ${CC.GOLD}${prize.rarity.name}")
                     addToLore("${CC.WHITE}Material: ${CC.GOLD}${prize.getItemStack().type.name}")
                     addToLore("${CC.WHITE}Weight: ${CC.GOLD}${prize.weightInternal}")
+                    if (prize is CommandCratePrize)
+                    {
+                        addToLore("${CC.WHITE}Command: ${CC.GOLD}${prize.internalCommand}")
+                    }
                     addToLore("")
                     addToLore("${CC.GREEN}Click to edit!")
                 }
