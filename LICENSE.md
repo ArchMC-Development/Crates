@@ -1,6 +1,6 @@
 # ArchMC Permission License (AMCPL)
 
-Version 1.1, 2025-28-2, Sha'ban 29 1446AH, at 6:19PM 
+Version 1.1, 2025-28-2, Sha'ban 29 1446AH, at 6:20PM 
 
 ## Terms and Conditions
 
@@ -18,9 +18,9 @@ Notwithstanding the permissions granted in Section 1, this license explicitly FO
 - The company "Scala Studios LLC" (including any future incorporated entity under this name), its employees, contractors, representatives, or agents
 - Any resident of the state of Montana, USA
 - Any company incorporated in the state of Montana, USA, its employees, contractors, representatives, or agents
-- Any citizen of the current state of Israel
-- Any company incorporated in Israel, its employees, contractors, representatives, or agents
-- Any individual who was deemed exempt for mandatory military service in Israel
+- Any citizen of the state of Israel
+- Any company incorporated in the state of Israel, its employees, contractors, representatives, or agents
+- Any individual who was deemed exempt for mandatory military service in the state of Israel
 - Any person employed by Guesty Inc., as well as any individual related by blood or marriage within three (3) generations to any employee of Guesty Inc.
 - Any individual who has received goods valued at over $100 USD from the user "professorparabellum" on Discord from the Hypixel store in exchange for a CVS gift card
 
