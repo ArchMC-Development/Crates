@@ -22,6 +22,7 @@ repositories {
     maven { url = "https://repo.codemc.io/repository/maven-snapshots/" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url = "https://repo.extendedclip.com/releases/" }
 
     maven {
         name "Arch"
@@ -50,6 +51,7 @@ dependencies {
     compileOnly "gg.scala.store:spigot:1.0.0"
     compileOnly "gg.scala.lemon:bukkit:2.1.0"
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("me.clip:placeholderapi:2.11.6")
 
     compileOnly "gg.scala.cloudsync:spigot:1.0.4"
     compileOnly "lol.arch.survival.rootkit:bukkit:1.0.0"

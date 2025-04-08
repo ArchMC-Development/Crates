@@ -10,6 +10,8 @@ import gg.scala.commons.core.plugin.PluginDependencyComposite
 import gg.scala.commons.core.plugin.PluginWebsite
 import gg.scala.crates.keys.DefaultKeyProvider
 import gg.scala.crates.keys.KeyProvider
+import gg.scala.crates.placeholder.CratePlaceholder
+import org.bukkit.Bukkit
 
 /**
  * @author GrowlyX
@@ -25,7 +27,8 @@ import gg.scala.crates.keys.KeyProvider
 @PluginDependencyComposite(
     PluginDependency("scala-commons"),
     PluginDependency("Rootkit"),
-    PluginDependency("cloudsync", soft = true)
+    PluginDependency("cloudsync", soft = true),
+    PluginDependency("PlaceholderAPI", soft = true)
 )
 class CratesSpigotPlugin : ExtendedScalaPlugin()
 {
@@ -36,5 +39,10 @@ class CratesSpigotPlugin : ExtendedScalaPlugin()
     {
         configuration = this.config()
         plugin = this
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+        {
+            CratePlaceholder().register()
+        }
     }
 }
