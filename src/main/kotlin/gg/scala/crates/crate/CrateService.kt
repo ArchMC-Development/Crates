@@ -33,7 +33,7 @@ object CrateService
     @Inject
     lateinit var plugin: CratesSpigotPlugin
 
-    private lateinit var config: CrateContainer
+    private var config: CrateContainer = CrateContainer()
 
     fun config() = this.config
     fun allCrates() = config().crates.values
@@ -83,6 +83,8 @@ object CrateService
                 AbstractTypeSerializer<CratePrize>()
             )
         }
+
+        loadConfig()
     }
 
     fun loadConfig()
