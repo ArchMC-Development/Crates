@@ -74,7 +74,7 @@ class CrateEditorViewMenu(
 
                         kotlin
                             .runCatching {
-                                CrateService.config().crates.add(crate)
+                                CrateService.config().crates[crate.uniqueId] = crate
                                 CrateService.saveConfig()
                             }
                             .onSuccess {

@@ -7,6 +7,8 @@ import gg.scala.commons.util.Files
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
+import gg.scala.crates.datasync.CrateContainer
+import gg.scala.crates.datasync.CrateDataSyncService
 import gg.scala.crates.keyProvider
 import gg.scala.crates.menu.opening.CrateOpenMenu
 import gg.scala.crates.menu.opening.CrateSelectRewardOpenMenu
@@ -31,13 +33,13 @@ object CrateService
     @Inject
     lateinit var plugin: CratesSpigotPlugin
 
-    private lateinit var config: CrateConfig
+    private lateinit var config: CrateContainer
 
     fun config() = this.config
-    fun allCrates() = config().crates
+    fun allCrates() = config().crates.values
 
     fun findCrate(name: String) =
-        this.config().crates
+        this.config().crates.values
             .firstOrNull {
                 it.uniqueId == name
             }
@@ -81,46 +83,16 @@ object CrateService
                 AbstractTypeSerializer<CratePrize>()
             )
         }
-
-        this.loadConfig()
     }
 
     fun loadConfig()
     {
-        val file = File(
-            this.plugin.dataFolder, "crates.json"
-        )
-
-        if (!file.exists())
-        {
-            file.createNewFile()
-
-            Files.write(
-                Serializers.gson.toJson(CrateConfig()), file
-            )
-        }
-
-        if (file.readText().isEmpty())
-        {
-            Files.write(
-                Serializers.gson.toJson(CrateConfig()), file
-            )
-        }
-
-        Files.read(file) {
-            this.config = Serializers
-                .gson.fromJson(
-                    it.readText(), CrateConfig::class.java
-                )
-        }
+        this.config = CrateDataSyncService.cached()
     }
 
     fun saveConfig()
     {
-        Files.write(
-            Serializers.gson.toJson(this.config),
-            File(this.plugin.dataFolder, "crates.json")
-        )
+        CrateDataSyncService.sync(this.config)
     }
 
     @CommandManagerCustomizer
@@ -130,7 +102,7 @@ object CrateService
             .registerContext(Crate::class.java) { context ->
                 val firstArg = context.popFirstArg()
 
-                this.config().crates
+                this.config().crates.values
                     .firstOrNull {
                         it.uniqueId == firstArg
                     }
@@ -141,7 +113,7 @@ object CrateService
 
         manager.commandCompletions
             .registerCompletion("crates") {
-                this.config().crates.map { it.uniqueId }
+                this.config().crates.values.map { it.uniqueId }
             }
     }
 }
