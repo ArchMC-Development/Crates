@@ -75,12 +75,4 @@ object CratesManageCommand : ScalaCommand()
     {
         CrateEditorViewMenu(this.plugin).openMenu(player)
     }
-
-    @Subcommand("reload-config")
-    fun onConfigReload(player: CommandSender)
-    {
-        CrateService.loadConfig()
-
-        player.sendMessage("${CC.GREEN}Reloaded config.")
-    }
 }

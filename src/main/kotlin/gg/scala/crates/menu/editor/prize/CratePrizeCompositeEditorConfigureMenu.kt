@@ -197,7 +197,7 @@ class CratePrizeCompositeEditorConfigureMenu(
 
                 kotlin
                     .runCatching {
-                        CrateService.saveConfig()
+                        CrateService.save(this.crate)
                     }
                     .onFailure {
                         it.printStackTrace()
