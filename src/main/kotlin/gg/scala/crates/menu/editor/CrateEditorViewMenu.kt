@@ -74,8 +74,7 @@ class CrateEditorViewMenu(
 
                         kotlin
                             .runCatching {
-                                CrateService.config().crates[crate.uniqueId] = crate
-                                CrateService.saveConfig()
+                                CrateService.save(crate)
                             }
                             .onSuccess {
                                 configuration.crateCreated.sendToPlayer(player)
@@ -126,12 +125,7 @@ class CrateEditorViewMenu(
                                         return@ConfirmMenu
                                     }
 
-                                    CrateService.allCrates()
-                                        .removeIf { crate ->
-                                            it.uniqueId == crate.uniqueId
-                                        }
-
-                                    CrateService.saveConfig()
+                                    CrateService.delete(it.uniqueId)
 
                                     configuration.crateDeletionSuccess.sendToPlayer(player)
                                 }.openMenu(player)

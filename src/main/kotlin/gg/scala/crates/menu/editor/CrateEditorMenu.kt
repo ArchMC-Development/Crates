@@ -3,6 +3,7 @@ package gg.scala.crates.menu.editor
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
+import gg.scala.crates.datasync.CrateDataSyncService
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorContextMenu
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
@@ -64,7 +65,7 @@ class CrateEditorMenu(
                         this.crate.displayName =
                             Color.translate(displayName)
 
-                        CrateService.saveConfig()
+                        CrateService.save(crate)
                         openMenu(player)
 
                         player.sendMessage(
@@ -100,7 +101,7 @@ class CrateEditorMenu(
             )
             .toButton { _, _ ->
                 crate.applicable = !crate.applicable
-                CrateService.saveConfig()
+                CrateService.save(crate)
 
                 player.sendMessage("${CC.GREEN}ok done ${crate.applicable}")
             }
@@ -134,7 +135,7 @@ class CrateEditorMenu(
             )
             .toButton { _, _ ->
                 crate.isSelectItem = !crate.isSelectItem
-                CrateService.saveConfig()
+                CrateService.save(crate)
 
                 player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
             }

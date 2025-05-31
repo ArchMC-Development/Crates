@@ -3,7 +3,6 @@ package gg.scala.crates.crate
 import gg.scala.commons.acf.ConditionFailedException
 import gg.scala.commons.annotations.commands.customizer.CommandManagerCustomizer
 import gg.scala.commons.command.ScalaCommandManager
-import gg.scala.commons.util.Files
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
@@ -21,7 +20,6 @@ import net.evilblock.cubed.serializers.impl.AbstractTypeSerializer
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.entity.Player
-import java.io.File
 
 /**
  * @author GrowlyX
@@ -33,9 +31,7 @@ object CrateService
     @Inject
     lateinit var plugin: CratesSpigotPlugin
 
-    private var config: CrateContainer = CrateContainer()
-
-    fun config() = this.config
+    fun config() = CrateDataSyncService.cached()
     fun allCrates() = config().crates.values
 
     fun findCrate(name: String) =
@@ -83,18 +79,24 @@ object CrateService
                 AbstractTypeSerializer<CratePrize>()
             )
         }
-
-        loadConfig()
     }
 
-    fun loadConfig()
+    fun save(crate: Crate)
     {
-        this.config = CrateDataSyncService.cached()
+        with(CrateDataSyncService.cached())
+        {
+            this.crates[crate.uniqueId] = crate
+            CrateDataSyncService.sync(this)
+        }
     }
 
-    fun saveConfig()
+    fun delete(uniqueId: String)
     {
-        CrateDataSyncService.sync(this.config)
+        with(CrateDataSyncService.cached())
+        {
+            this.crates.remove(uniqueId)
+            CrateDataSyncService.sync(this)
+        }
     }
 
     @CommandManagerCustomizer
