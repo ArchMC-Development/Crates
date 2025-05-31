@@ -85,7 +85,7 @@ publishing {
     repositories {
         maven {
             name "Arch"
-            url "${property("artifactory_contextUrl")}/gradle-dev"
+            url "${property("artifactory_contextUrl")}/gradle-release"
 
             credentials {
                 username property("artifactory_user")
