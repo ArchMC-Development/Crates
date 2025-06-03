@@ -53,17 +53,12 @@ class CrateContentsMenu(
                 .copyOf(prize.getItemStack())
                 .name("${CC.B_AQUA}${prize.name}")
                 .apply {
-                    if (prize.description.isEmpty())
+                    if (prize.description.isNotEmpty())
                     {
-                        addToLore("")
-                    } else
-                    {
+   
                         addToLore(*prize.description.toTypedArray())
                     }
                 }
-                .addToLore(
-                    "",
-                )
                 .toButton()
         }
 
