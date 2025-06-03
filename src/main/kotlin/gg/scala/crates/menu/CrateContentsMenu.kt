@@ -55,7 +55,6 @@ class CrateContentsMenu(
                 .apply {
                     if (prize.description.isNotEmpty())
                     {
-   
                         addToLore(*prize.description.toTypedArray())
                     }
                 }
