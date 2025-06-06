@@ -26,7 +26,7 @@ import org.bukkit.Bukkit
 @PluginApiVersion("1.20")
 @PluginDependencyComposite(
     PluginDependency("scala-commons"),
-    PluginDependency("Rootkit"),
+    PluginDependency("Survival"),
     PluginDependency("cloudsync", soft = true),
     PluginDependency("PlaceholderAPI", soft = true)
 )

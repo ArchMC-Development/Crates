@@ -47,7 +47,6 @@ object CratesCommand : ScalaCommand()
     }
 
     @Subcommand("menu")
-    @CommandPermission("crates.command.crates.menu")
     fun onMenu(player: Player)
     {
         CrateViewMenu.open(player)
