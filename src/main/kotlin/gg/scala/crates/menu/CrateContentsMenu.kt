@@ -53,20 +53,11 @@ class CrateContentsMenu(
                 .copyOf(prize.getItemStack())
                 .name("${CC.B_AQUA}${prize.name}")
                 .apply {
-                    if (prize.description.isEmpty())
-                    {
-                        addToLore("${CC.RED}No description.")
-                    } else
+                    if (prize.description.isNotEmpty())
                     {
                         addToLore(*prize.description.toTypedArray())
                     }
                 }
-                .addToLore(
-                    "",
-                    "${CC.WHITE}Rarity: ${prize.rarity.chatColor}${prize.rarity.name}",
-                    "",
-                    if (!prize.applicableTo(player)) "${CC.RED}You cannot win this item!" else "${CC.GREEN}You are able to win this item!"
-                )
                 .toButton()
         }
 
