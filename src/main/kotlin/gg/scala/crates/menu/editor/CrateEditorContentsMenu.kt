@@ -2,6 +2,7 @@ package gg.scala.crates.menu.editor
 
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
+import gg.scala.crates.crate.CrateService
 import gg.scala.crates.crate.prize.composable.CompositeCratePrizeService
 import gg.scala.crates.crate.prize.composable.test.CommandCratePrize
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorConfigureMenu
@@ -78,18 +79,28 @@ class CrateEditorContentsMenu(
                         addToLore("${CC.WHITE}Command: ${CC.GOLD}${prize.internalCommand}")
                     }
                     addToLore("")
-                    addToLore("${CC.GREEN}Click to edit!")
+                    addToLore("${CC.GREEN}Left-Click to edit!")
+                    addToLore("${CC.RED}Right-Click to delete!")
                 }
-                .toButton { _, _ ->
-                    val mapping = CompositeCratePrizeService
-                        .composites[prize::class]!!
+                .toButton { _, click ->
+                    if (click?.isLeftClick == true)
+                    {
+                        val mapping = CompositeCratePrizeService
+                            .composites[prize::class]!!
 
-                    Tasks.sync {
-                        CratePrizeCompositeEditorConfigureMenu(
-                            this.crate, this.plugin, mapping,
-                            mapping.createSessionFromExisting(prize),
-                            prize, this
-                        ).openMenu(player)
+                        Tasks.sync {
+                            CratePrizeCompositeEditorConfigureMenu(
+                                this.crate, this.plugin, mapping,
+                                mapping.createSessionFromExisting(prize),
+                                prize, this
+                            ).openMenu(player)
+                        }
+                    } else
+                    {
+                        this.crate.prizes.remove(prize)
+                        CrateService.save(crate)
+
+                        player.sendMessage("${CC.RED}Deleted item!")
                     }
                 }
         }
