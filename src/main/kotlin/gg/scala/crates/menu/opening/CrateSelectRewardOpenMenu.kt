@@ -21,6 +21,7 @@ class CrateSelectRewardOpenMenu(
     init
     {
         autoUpdateInterval = 100L
+        keepBottomMechanics = false
     }
 
     private val applicable = this.crate.prizes

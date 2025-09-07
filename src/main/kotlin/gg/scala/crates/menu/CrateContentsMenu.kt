@@ -21,6 +21,7 @@ class CrateContentsMenu(
     init
     {
         placeholdBorders = true
+        keepBottomMechanics = false
     }
 
     override fun size(buttons: Map<Int, Button>) = 45
