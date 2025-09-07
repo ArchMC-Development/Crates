@@ -56,8 +56,8 @@ dependencies {
     compileOnly "gg.scala.cloudsync:spigot:1.0.4"
     compileOnly "lol.arch.survival.rootkit:bukkit:1.0.0"
 
-    compileOnly "gg.scala.commons:bukkit:4.0.0"
-    kapt "gg.scala.commons:bukkit:4.0.0"
+    compileOnly "gg.scala.commons:bukkit:7.6.0"
+    kapt "gg.scala.commons:bukkit:7.6.0"
 }
 
 compileKotlin {
