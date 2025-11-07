@@ -11,6 +11,7 @@ import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.bukkit.Tasks
 import net.evilblock.cubed.util.bukkit.prompt.InputPrompt
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import kotlin.reflect.KClass
@@ -101,6 +102,14 @@ object CompositeCratePrizeService
                         }
 
                         session.material = player.inventory.itemInMainHand
+                        session.name = LegacyComponentSerializer.legacySection()
+                            .serializeOrNull(player.inventory.itemInMainHand.displayName())
+                            ?.replace("[", "")
+                            ?.replace("]", "")
+                            ?: player.inventory.itemInMainHand.type.name.split("_")
+                                .joinToString { string ->
+                                    string.lowercase().replaceFirstChar { it.uppercase() }
+                                }
                         player.sendMessage("${CC.SEC}Set material to: ${CC.PRI}${session.material.type.name}")
 
                         Tasks.sync {
@@ -185,6 +194,12 @@ object CompositeCratePrizeService
                         }
 
                         session.material = player.inventory.itemInMainHand
+                        session.name = LegacyComponentSerializer.legacySection()
+                            .serializeOrNull(player.inventory.itemInMainHand.displayName())
+                            ?: player.inventory.itemInMainHand.type.name.split("_")
+                                .joinToString { string ->
+                                    string.lowercase().replaceFirstChar { it.uppercase() }
+                                }
                         player.sendMessage("${CC.SEC}Set material to: ${CC.PRI}${session.material.type.name}")
 
                         Tasks.sync {
