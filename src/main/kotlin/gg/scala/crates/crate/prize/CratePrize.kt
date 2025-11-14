@@ -14,7 +14,7 @@ import java.util.function.UnaryOperator
  */
 abstract class CratePrize(
     var name: String,
-    val material: String,
+    var material: String,
     var weightInternal: Double,
     var description: MutableList<String>,
     var rarity: CratePrizeRarity = CratePrizeRarity.Common

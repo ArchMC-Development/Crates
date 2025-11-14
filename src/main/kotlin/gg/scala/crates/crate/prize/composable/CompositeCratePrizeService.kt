@@ -4,6 +4,7 @@ import gg.scala.crates.crate.prize.composable.test.CommandCompositeCratePrizeEdi
 import gg.scala.crates.crate.prize.composable.test.CommandCratePrize
 import gg.scala.crates.crate.prize.composable.test.ItemCompositeCratePrizeEditSession
 import gg.scala.crates.crate.prize.composable.test.ItemCratePrize
+import gg.scala.crates.itemStackToBase64
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
 import gg.scala.lemon.util.CallbackInputPrompt
@@ -49,7 +50,8 @@ object CompositeCratePrizeService
                 session as ItemCompositeCratePrizeEditSession
 
                 prize.name = session.name
-                prize.internalStack = ItemStack(session.material)
+                prize.internalStack = session.material
+                prize.material = itemStackToBase64(session.material)
                 prize.weightInternal = session.weight
                 prize.rarity = session.rarity
                 prize.description = session.description
