@@ -95,7 +95,7 @@ object CrateService
                 if (event.action == Action.LEFT_CLICK_BLOCK)
                 {
                     CrateContentsMenu(crateFromLocation).openMenu(player)
-                } else
+                } else if (event.action == Action.RIGHT_CLICK_BLOCK)
                 {
                     try
                     {
