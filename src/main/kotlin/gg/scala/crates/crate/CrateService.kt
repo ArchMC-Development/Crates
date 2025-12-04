@@ -8,6 +8,7 @@ import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
 import gg.scala.crates.datasync.CrateDataSyncService
 import gg.scala.crates.keyProvider
+import gg.scala.crates.menu.CrateContentsMenu
 import gg.scala.crates.menu.opening.CrateOpenMenu
 import gg.scala.crates.menu.opening.CrateSelectRewardOpenMenu
 import gg.scala.crates.sendToPlayer
@@ -21,6 +22,7 @@ import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
 /**
@@ -90,7 +92,19 @@ object CrateService
                 val crateFromLocation = crateFromLocation(click)
                     ?: return@handler
 
-                //todo: left click open right click view content
+                if (event.action == Action.LEFT_CLICK_BLOCK)
+                {
+                    CrateContentsMenu(crateFromLocation).openMenu(player)
+                } else
+                {
+                    try
+                    {
+                        openCrate(player, crateFromLocation)
+                    } catch (exception: ConditionFailedException)
+                    {
+                        player.sendMessage("${CC.RED}${exception.message}")
+                    }
+                }
             }
     }
 
