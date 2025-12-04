@@ -1,5 +1,6 @@
 package gg.scala.crates.menu.editor
 
+import com.charleskorn.kaml.YamlPathSegment.Root.location
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
@@ -31,7 +32,7 @@ class CrateEditorMenu(
         placeholder = true
     }
 
-    override fun size(buttons: Map<Int, Button>) = 27
+    override fun size(buttons: Map<Int, Button>) = 36
 
     override fun onClose(player: Player, manualClose: Boolean)
     {
@@ -138,6 +139,21 @@ class CrateEditorMenu(
                 CrateService.save(crate)
 
                 player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
+            }
+
+        buttons[27] = ItemBuilder
+            .of(Material.DIRT)
+            .name("${CC.GREEN}Physical Location")
+            .addToLore(
+                "${CC.GRAY}Allow the crate to be at a physical location.",
+                "",
+                "${CC.YELLOW}Click to set"
+            )
+            .toButton { _, _ ->
+                crate.physicalLocation = player.location
+                CrateService.save(crate)
+
+                player.sendMessage("${CC.GREEN}ok done")
             }
 
         return buttons

@@ -83,11 +83,11 @@ object CrateViewMenu
                                 keyProvider().getKeysFor(player.uniqueId, crate)
                             } keys",
                             "",
-                            "${CC.AQUA}Right-click to open crate.",
-                            "${CC.D_GRAY}Left-click to view contents.",
+                            "${CC.AQUA}Left-click to open crate.",
+                            "${CC.D_GRAY}Right-click to view contents.",
                         )
                         .toButton { _, type ->
-                            if (type!!.isRightClick)
+                            if (type!!.isLeftClick)
                             {
                                 try
                                 {

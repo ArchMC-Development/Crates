@@ -6,7 +6,6 @@ import gg.scala.commons.command.ScalaCommandManager
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.configuration
 import gg.scala.crates.crate.prize.CratePrize
-import gg.scala.crates.datasync.CrateContainer
 import gg.scala.crates.datasync.CrateDataSyncService
 import gg.scala.crates.keyProvider
 import gg.scala.crates.menu.opening.CrateOpenMenu
@@ -15,11 +14,14 @@ import gg.scala.crates.sendToPlayer
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
+import me.lucko.helper.Events
 import net.evilblock.cubed.serializers.Serializers
 import net.evilblock.cubed.serializers.impl.AbstractTypeSerializer
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks
+import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerInteractEvent
 
 /**
  * @author GrowlyX
@@ -79,6 +81,17 @@ object CrateService
                 AbstractTypeSerializer<CratePrize>()
             )
         }
+
+        Events.subscribe(PlayerInteractEvent::class.java)
+            .handler { event ->
+                val player = event.player
+                val click = event.clickedBlock?.location
+                    ?: return@handler
+                val crateFromLocation = crateFromLocation(click)
+                    ?: return@handler
+
+                //todo: left click open right click view content
+            }
     }
 
     fun save(crate: Crate)
@@ -120,5 +133,8 @@ object CrateService
                 this.config().crates.values.map { it.uniqueId }
             }
     }
+
+    fun crateFromLocation(location: Location) =
+        CrateDataSyncService.cached().crates.values.firstOrNull { it.physicalLocation == location }
 }
 
