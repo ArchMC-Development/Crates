@@ -149,6 +149,6 @@ object CrateService
     }
 
     fun crateFromLocation(location: Location) =
-        CrateDataSyncService.cached().crates.values.firstOrNull { it.physicalLocation == location }
+        CrateDataSyncService.cached().crates.values.firstOrNull { it.physicalLocation?.toBlockLocation() == location }
 }
 

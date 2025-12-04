@@ -141,7 +141,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
             }
 
-        buttons[27] = ItemBuilder
+        buttons[19] = ItemBuilder
             .of(Material.DIRT)
             .name("${CC.GREEN}Physical Location")
             .addToLore(
