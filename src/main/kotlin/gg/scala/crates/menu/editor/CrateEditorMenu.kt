@@ -76,7 +76,7 @@ class CrateEditorMenu(
                     .start(player)
             }
 
-        buttons[11] = ItemBuilder
+        buttons[10] = ItemBuilder
             .of(Material.COOKED_PORKCHOP)
             .name("${CC.GREEN}Manage Items")
             .addToLore(
@@ -90,7 +90,7 @@ class CrateEditorMenu(
                 }
             }
 
-        buttons[13] = ItemBuilder
+        buttons[11] = ItemBuilder
             .of(Material.GOLDEN_CARROT)
             .name("${CC.GREEN}Applicable status")
             .addToLore(
@@ -107,7 +107,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.applicable}")
             }
 
-        buttons[15] = ItemBuilder
+        buttons[12] = ItemBuilder
             .copyOf(
                 object : AddButton()
                 {}.getButtonItem(player)
@@ -124,7 +124,7 @@ class CrateEditorMenu(
                 }
             }
 
-        buttons[17] = ItemBuilder
+        buttons[13] = ItemBuilder
             .of(Material.BLAZE_POWDER)
             .name("${CC.GREEN}Select Items")
             .addToLore(
@@ -141,7 +141,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
             }
 
-        buttons[19] = ItemBuilder
+        buttons[14] = ItemBuilder
             .of(Material.DIRT)
             .name("${CC.GREEN}Physical Location")
             .addToLore(
