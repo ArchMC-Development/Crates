@@ -48,7 +48,7 @@ class CrateEditorMenu(
     {
         val buttons = mutableMapOf<Int, Button>()
 
-        buttons[9] = ItemBuilder
+        buttons[10] = ItemBuilder
             .of(Material.OAK_SIGN)
             .name("${CC.GREEN}Display Name")
             .addToLore(
@@ -76,7 +76,7 @@ class CrateEditorMenu(
                     .start(player)
             }
 
-        buttons[10] = ItemBuilder
+        buttons[11] = ItemBuilder
             .of(Material.COOKED_PORKCHOP)
             .name("${CC.GREEN}Manage Items")
             .addToLore(
@@ -90,7 +90,7 @@ class CrateEditorMenu(
                 }
             }
 
-        buttons[11] = ItemBuilder
+        buttons[12] = ItemBuilder
             .of(Material.GOLDEN_CARROT)
             .name("${CC.GREEN}Applicable status")
             .addToLore(
@@ -107,7 +107,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.applicable}")
             }
 
-        buttons[12] = ItemBuilder
+        buttons[13] = ItemBuilder
             .copyOf(
                 object : AddButton()
                 {}.getButtonItem(player)
@@ -124,7 +124,7 @@ class CrateEditorMenu(
                 }
             }
 
-        buttons[13] = ItemBuilder
+        buttons[14] = ItemBuilder
             .of(Material.BLAZE_POWDER)
             .name("${CC.GREEN}Select Items")
             .addToLore(
@@ -141,7 +141,7 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done ${crate.isSelectItem}")
             }
 
-        buttons[14] = ItemBuilder
+        buttons[15] = ItemBuilder
             .of(Material.DIRT)
             .name("${CC.GREEN}Physical Location")
             .addToLore(
@@ -150,7 +150,7 @@ class CrateEditorMenu(
                 "${CC.YELLOW}Click to set"
             )
             .toButton { _, _ ->
-                crate.physicalLocation = player.location
+                crate.physicalLocation = player.location.toBlockLocation()
                 CrateService.save(crate)
 
                 player.sendMessage("${CC.GREEN}ok done")
