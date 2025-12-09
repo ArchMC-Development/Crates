@@ -92,6 +92,8 @@ object CrateService
                 val crateFromLocation = crateFromLocation(click)
                     ?: return@handler
 
+                event.isCancelled = true
+
                 if (event.action == Action.LEFT_CLICK_BLOCK)
                 {
                     CrateContentsMenu(crateFromLocation).openMenu(player)
@@ -149,6 +151,13 @@ object CrateService
     }
 
     fun crateFromLocation(location: Location) =
-        CrateDataSyncService.cached().crates.values.firstOrNull { it.physicalLocation?.toBlockLocation() == location }
+        CrateDataSyncService.cached().crates.values.firstOrNull {
+            val crateLocation = it.physicalLocation?.toBlockLocation()
+            crateLocation != null &&
+                    crateLocation.world?.name == location.world?.name &&
+                    crateLocation.blockX == location.blockX &&
+                    crateLocation.blockY == location.blockY &&
+                    crateLocation.blockZ == location.blockZ
+        }
 }
 

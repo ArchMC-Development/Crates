@@ -32,7 +32,7 @@ class CrateEditorMenu(
         placeholder = true
     }
 
-    override fun size(buttons: Map<Int, Button>) = 36
+    override fun size(buttons: Map<Int, Button>) = 27
 
     override fun onClose(player: Player, manualClose: Boolean)
     {
