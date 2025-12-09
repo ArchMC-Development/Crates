@@ -22,9 +22,11 @@ import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.event.Event
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
+import java.util.UUID
 
 /**
  * @author GrowlyX
@@ -38,6 +40,8 @@ object CrateService
 
     fun config() = CrateDataSyncService.cached()
     fun allCrates() = config().crates.values
+
+    private val lastInteract = mutableMapOf<UUID, Long>()
 
     fun findCrate(name: String) =
         this.config().crates.values
@@ -96,6 +100,13 @@ object CrateService
                     ?: return@handler
                 val crateFromLocation = crateFromLocation(click)
                     ?: return@handler
+
+                val now = System.currentTimeMillis()
+                val last = lastInteract[player.uniqueId] ?: 0L
+                if (now - last < 5L) {
+                    return@handler
+                }
+                lastInteract[player.uniqueId] = now
 
                 event.isCancelled = true
 
