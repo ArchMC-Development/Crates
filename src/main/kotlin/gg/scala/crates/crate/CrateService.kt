@@ -24,6 +24,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.EquipmentSlot
 
 /**
  * @author GrowlyX
@@ -85,6 +86,10 @@ object CrateService
         }
 
         Events.subscribe(PlayerInteractEvent::class.java)
+            .filter {
+                it.hand == EquipmentSlot.HAND &&
+                        (it.action == Action.LEFT_CLICK_BLOCK || it.action == Action.RIGHT_CLICK_BLOCK)
+            }
             .handler { event ->
                 val player = event.player
                 val click = event.clickedBlock?.location

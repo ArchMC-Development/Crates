@@ -1,10 +1,8 @@
 package gg.scala.crates.menu.editor
 
-import com.charleskorn.kaml.YamlPathSegment.Root.location
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
-import gg.scala.crates.datasync.CrateDataSyncService
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorContextMenu
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
@@ -147,12 +145,21 @@ class CrateEditorMenu(
             .addToLore(
                 "${CC.GRAY}Allow the crate to be at a physical location.",
                 "",
-                "${CC.YELLOW}Click to set"
+                "${CC.WHITE}Current: ${CC.GREEN}${if (crate.physicalLocation != null) "${crate.physicalLocation!!.blockX},${crate.physicalLocation!!.blockY},${crate.physicalLocation!!.blockX}" else "None"}",
+                "",
+                "${CC.YELLOW}Left-Click to set",
+                "${CC.RED}Right-Click to clear"
             )
-            .toButton { _, _ ->
-                crate.physicalLocation = player.location.toBlockLocation()
-                CrateService.save(crate)
+            .toButton { _, click ->
+                if (click?.isLeftClick == true)
+                {
+                    crate.physicalLocation = player.location.toBlockLocation()
+                } else
+                {
+                    crate.physicalLocation = null
+                }
 
+                CrateService.save(crate)
                 player.sendMessage("${CC.GREEN}ok done")
             }
 
