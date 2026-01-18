@@ -1,10 +1,13 @@
 package gg.scala.crates.menu.editor
 
+import com.cryptomorin.xseries.XMaterial
 import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
+import gg.scala.crates.crate.prize.CratePrizeRarity
 import gg.scala.crates.crate.prize.composable.CompositeCratePrizeService
 import gg.scala.crates.crate.prize.composable.test.CommandCratePrize
+import gg.scala.crates.crate.prize.composable.test.ItemCratePrize
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorConfigureMenu
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
@@ -12,6 +15,8 @@ import net.evilblock.cubed.menu.pagination.PaginatedMenu
 import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.ItemBuilder
 import net.evilblock.cubed.util.bukkit.Tasks
+import okhttp3.internal.immutableListOf
+import org.bukkit.Material
 import org.bukkit.entity.Player
 
 /**
@@ -26,6 +31,7 @@ class CrateEditorContentsMenu(
     init
     {
         placeholdBorders = true
+        updateAfterClick = true
     }
 
     override fun size(buttons: Map<Int, Button>) = 45
@@ -36,6 +42,43 @@ class CrateEditorContentsMenu(
             addAll(19..25)
             addAll(28..34)
         }
+
+    override fun getGlobalButtons(player: Player): Map<Int, Button> = mutableMapOf<Int, Button>().also { buttons ->
+        buttons[4] = ItemBuilder.of(XMaterial.CHEST)
+            .name("${CC.GREEN}Use Inventory as Contents")
+            .addToLore(
+                "${CC.WHITE}Click to set the contents of this",
+                "${CC.WHITE}crate to what is in your",
+                "${CC.WHITE}inventory.",
+                "",
+                "${CC.RED}Note: For command-based prizes, insert",
+                "${CC.RED}manually.",
+                "",
+                "${CC.YELLOW}Click to set crate contents"
+            ).toButton { _, _ ->
+                crate.prizes.clear()
+                crate.prizes = player.inventory.storageContents.filter {
+                    it != null && it.type != Material.AIR
+                }.map { stack ->
+                    val item = stack!!
+                    val displayName =
+                        if (item.hasItemMeta() && item.itemMeta.hasDisplayName()) item.itemMeta.displayName else item.type.name.split(
+                            "_"
+                        ).joinToString(" ") { string ->
+                            string.lowercase().replaceFirstChar { it.uppercaseChar() }
+                        }
+
+                    ItemCratePrize(
+                        displayName, item.clone(),
+                        100.0, CratePrizeRarity.Common,
+                        mutableListOf()
+                    )
+                }.toMutableList()
+
+                CrateService.save(crate)
+                player.sendMessage("${CC.GREEN}ok done.")
+            }
+    }
 
     override fun onClose(player: Player, manualClose: Boolean)
     {

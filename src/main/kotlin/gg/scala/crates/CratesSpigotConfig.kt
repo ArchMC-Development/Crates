@@ -16,7 +16,7 @@ class CratesSpigotConfig
     val crateOpenTitle = "Opening crate..."
 
     val crateViewTitle = "Select a crate to open!"
-    val crateViewScopeTitle = "Viewing crate %s..."
+    val crateViewScopeTitle = "Viewing Crate: %s"
 
     @Comment("The /crates menu layout mapping.")
     val menuScheme = arrayOf(

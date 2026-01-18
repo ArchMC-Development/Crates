@@ -1,7 +1,9 @@
 package gg.scala.crates.menu
 
+import com.cryptomorin.xseries.XMaterial
 import gg.scala.crates.configuration
 import gg.scala.crates.crate.Crate
+import gg.scala.crates.keyProvider
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.pagination.PaginatedMenu
 import net.evilblock.cubed.util.CC
@@ -44,6 +46,24 @@ class CrateContentsMenu(
         }
     }
 
+    override fun getGlobalButtons(player: Player): Map<Int, Button> = mutableMapOf<Int, Button>().also { buttons ->
+        buttons[40] = ItemBuilder.of(XMaterial.TRIPWIRE_HOOK)
+            .name("${CC.YELLOW}${crate.displayName}")
+            .addToLore(
+                "${CC.WHITE}You have ${CC.GREEN}${
+                    keyProvider()
+                        .getKeysFor(
+                            player.uniqueId, crate
+                        )
+                } ${CC.WHITE}keys",
+                "${CC.WHITE}that you can use for this",
+                "${CC.WHITE}crate. Want more? Check",
+                "${CC.WHITE}out our store.",
+                "",
+                "${CC.GREEN}store.arch.mc"
+            ).toButton()
+    }
+
     override fun getAllPagesButtons(player: Player): Map<Int, Button>
     {
         val buttons = mutableMapOf<Int, Button>()
@@ -65,9 +85,5 @@ class CrateContentsMenu(
         return buttons
     }
 
-    override fun getPrePaginatedTitle(player: Player) = String
-        .format(
-            configuration.crateViewScopeTitle,
-            ChatColor.stripColor(crate.displayName)
-        )
+    override fun getPrePaginatedTitle(player: Player) = "Viewing Crate: ${crate.displayName}"
 }

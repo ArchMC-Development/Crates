@@ -10,7 +10,7 @@ import org.bukkit.Location
 data class Crate(
     val uniqueId: String,
     var displayName: String,
-    val prizes: MutableList<CratePrize>,
+    var prizes: MutableList<CratePrize>,
     var applicable: Boolean = false,
     var isSelectItem: Boolean = false,
     var physicalLocation: Location? = null

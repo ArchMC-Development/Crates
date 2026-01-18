@@ -145,7 +145,7 @@ class CrateEditorMenu(
             .addToLore(
                 "${CC.GRAY}Allow the crate to be at a physical location.",
                 "",
-                "${CC.WHITE}Current: ${CC.GREEN}${if (crate.physicalLocation != null) "${crate.physicalLocation!!.blockX},${crate.physicalLocation!!.blockY},${crate.physicalLocation!!.blockX}" else "None"}",
+                "${CC.WHITE}Current: ${CC.GREEN}${if (crate.physicalLocation != null) "${crate.physicalLocation!!.blockX},${crate.physicalLocation!!.blockY},${crate.physicalLocation!!.blockZ}" else "None"}",
                 "",
                 "${CC.YELLOW}Left-Click to set",
                 "${CC.RED}Right-Click to clear"
