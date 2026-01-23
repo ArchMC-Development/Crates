@@ -160,6 +160,25 @@ class CrateEditorMenu(
                 }
 
                 CrateService.save(crate)
+                CrateService.reinitializeCrates()
+                player.sendMessage("${CC.GREEN}ok done")
+            }
+
+        buttons[16] = ItemBuilder
+            .of(Material.OAK_SIGN)
+            .name("${CC.GREEN}Enable Hologram")
+            .addToLore(
+                "${CC.GRAY}Enables the use of a crate hologram.",
+                "",
+                "${CC.WHITE}Current: ${CC.WHITE}${if (crate.isHologramEnabled) "${CC.GREEN}Enabled" else "${CC.RED}Disabled"}",
+                "",
+                "${CC.YELLOW}Left-Click to set",
+            )
+            .toButton { _, _ ->
+                crate.isHologramEnabled = !crate.isHologramEnabled
+
+                CrateService.save(crate)
+                CrateService.reinitializeCrates()
                 player.sendMessage("${CC.GREEN}ok done")
             }
 

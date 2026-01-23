@@ -5,11 +5,11 @@ import gg.scala.commons.persist.datasync.DataSyncKeys
 import gg.scala.commons.persist.datasync.DataSyncService
 import gg.scala.commons.persist.datasync.DataSyncSource
 import gg.scala.flavor.service.Service
+import net.evilblock.cubed.util.CC
 import net.kyori.adventure.key.Key
-import org.bukkit.Location
 
 @Service
-object CrateDataSyncService: DataSyncService<CrateContainer>()
+object CrateDataSyncService : DataSyncService<CrateContainer>()
 {
     object CrateKeys : DataSyncKeys
     {
@@ -23,6 +23,18 @@ object CrateDataSyncService: DataSyncService<CrateContainer>()
         stage("add-crate-physicalblocks") {
             crates.values.forEach {
                 it.physicalLocation = null
+            }
+        }
+
+        stage("add-crate-holograms") {
+            crates.values.forEach {
+                it.isHologramEnabled = false
+                it.hologramLines = mutableListOf(
+                    it.displayName,
+                    "",
+                    "${CC.WHITE}Left-Click to preview crate",
+                    "${CC.WHITE}Right-Click to open crate",
+                )
             }
         }
     }

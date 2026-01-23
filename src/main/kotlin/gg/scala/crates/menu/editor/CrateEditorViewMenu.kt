@@ -75,6 +75,7 @@ class CrateEditorViewMenu(
                         kotlin
                             .runCatching {
                                 CrateService.save(crate)
+                                CrateService.reinitializeCrates()
                             }
                             .onSuccess {
                                 configuration.crateCreated.sendToPlayer(player)

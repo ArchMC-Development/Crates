@@ -22,11 +22,10 @@ import net.evilblock.cubed.util.CC
 import net.evilblock.cubed.util.bukkit.Tasks
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import org.bukkit.event.Event
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
-import java.util.UUID
+import java.util.*
 
 /**
  * @author GrowlyX
@@ -89,6 +88,8 @@ object CrateService
             )
         }
 
+        reinitializeCrates()
+
         Events.subscribe(PlayerInteractEvent::class.java)
             .filter {
                 it.hand == EquipmentSlot.HAND &&
@@ -103,7 +104,8 @@ object CrateService
 
                 val now = System.currentTimeMillis()
                 val last = lastInteract[player.uniqueId] ?: 0L
-                if (now - last < 5L) {
+                if (now - last < 5L)
+                {
                     return@handler
                 }
                 lastInteract[player.uniqueId] = now
@@ -141,6 +143,13 @@ object CrateService
         {
             this.crates.remove(uniqueId)
             CrateDataSyncService.sync(this)
+        }
+    }
+
+    fun reinitializeCrates()
+    {
+        allCrates().forEach { crate ->
+            crate.initializeBukkit()
         }
     }
 
