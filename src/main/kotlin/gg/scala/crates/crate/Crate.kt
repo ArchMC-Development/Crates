@@ -17,6 +17,7 @@ data class Crate(
     var applicable: Boolean = false,
     var isSelectItem: Boolean = false,
     var isHologramEnabled: Boolean = false,
+    var shouldCompressMenu: Boolean = false,
     var hologramLines: MutableList<String> = mutableListOf(
         displayName,
         "",

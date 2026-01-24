@@ -182,6 +182,24 @@ class CrateEditorMenu(
                 player.sendMessage("${CC.GREEN}ok done")
             }
 
+        buttons[19] = ItemBuilder
+            .of(Material.REDSTONE)
+            .name("${CC.GREEN}Compressed Menu")
+            .addToLore(
+                "${CC.GRAY}Enables the use of a compressed menu.",
+                "",
+                "${CC.WHITE}Current: ${CC.WHITE}${if (crate.shouldCompressMenu) "${CC.GREEN}Enabled" else "${CC.RED}Disabled"}",
+                "",
+                "${CC.YELLOW}Left-Click to set",
+            )
+            .toButton { _, _ ->
+                crate.shouldCompressMenu = !crate.shouldCompressMenu
+
+                CrateService.save(crate)
+                player.sendMessage("${CC.GREEN}ok done")
+            }
+
+
         return buttons
     }
 }

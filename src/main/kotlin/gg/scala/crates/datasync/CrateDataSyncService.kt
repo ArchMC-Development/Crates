@@ -37,6 +37,12 @@ object CrateDataSyncService : DataSyncService<CrateContainer>()
                 )
             }
         }
+
+        stage("add-meta-details") {
+            crates.values.forEach {
+
+            }
+        }
     }
 
     override fun postReload()
