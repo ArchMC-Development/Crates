@@ -35,7 +35,7 @@ data class Crate(
 
         if (physicalLocation != null && isHologramEnabled)
         {
-            hologram = HologramEntity(displayName, physicalLocation!!.clone().add(0.5, 2.5, 0.5))
+            hologram = HologramEntity(displayName, physicalLocation!!.clone().add(0.5, 1.5, 0.5))
                 .also { entity ->
                     entity.updateLines(hologramLines)
                     entity.persistent = false
