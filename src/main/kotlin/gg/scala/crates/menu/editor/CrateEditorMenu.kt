@@ -4,6 +4,7 @@ import gg.scala.crates.CratesSpigotPlugin
 import gg.scala.crates.crate.Crate
 import gg.scala.crates.crate.CrateService
 import gg.scala.crates.menu.editor.prize.CratePrizeCompositeEditorContextMenu
+import gg.scala.lemon.util.CallbackInputPrompt
 import net.evilblock.cubed.menu.Button
 import net.evilblock.cubed.menu.Menu
 import net.evilblock.cubed.menu.buttons.AddButton
@@ -30,7 +31,7 @@ class CrateEditorMenu(
         placeholder = true
     }
 
-    override fun size(buttons: Map<Int, Button>) = 27
+    override fun size(buttons: Map<Int, Button>) = 36
 
     override fun onClose(player: Player, manualClose: Boolean)
     {
@@ -197,6 +198,25 @@ class CrateEditorMenu(
 
                 CrateService.save(crate)
                 player.sendMessage("${CC.GREEN}ok done")
+            }
+
+        buttons[20] = ItemBuilder
+            .of(Material.ENDER_CHEST)
+            .name("${CC.GREEN}Crate Group")
+            .addToLore(
+                "${CC.GRAY}Enables the use of grouped crates.",
+                "",
+                "${CC.WHITE}Current: ${CC.WHITE}${if (crate.group != null) crate.group else "${CC.RED}No group"}",
+                "",
+                "${CC.YELLOW}Left-Click to set",
+            )
+            .toButton { _, _ ->
+                CallbackInputPrompt("${CC.GREEN}Enter new crate group") { input ->
+                    crate.group = input
+
+                    CrateService.save(crate)
+                    player.sendMessage("${CC.GREEN}ok done")
+                }.start(player)
             }
 
 

@@ -43,6 +43,12 @@ object CrateDataSyncService : DataSyncService<CrateContainer>()
                 it.shouldCompressMenu = false
             }
         }
+
+        stage("add-group") {
+            crates.values.forEach {
+                it.group = "lifesteal"
+            }
+        }
     }
 
     override fun postReload()

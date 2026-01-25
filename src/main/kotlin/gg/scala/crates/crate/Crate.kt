@@ -24,7 +24,8 @@ data class Crate(
         "${CC.WHITE}Left-Click to preview crate",
         "${CC.WHITE}Right-Click to open crate",
     ),
-    var physicalLocation: Location? = null
+    var physicalLocation: Location? = null,
+    var group: String? = null
 )
 {
     @Transient

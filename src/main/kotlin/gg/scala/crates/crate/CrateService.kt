@@ -1,6 +1,7 @@
 package gg.scala.crates.crate
 
 import gg.scala.commons.acf.ConditionFailedException
+import gg.scala.commons.agnostic.sync.ServerSync
 import gg.scala.commons.annotations.commands.customizer.CommandManagerCustomizer
 import gg.scala.commons.command.ScalaCommandManager
 import gg.scala.crates.CratesSpigotPlugin
@@ -39,6 +40,7 @@ object CrateService
 
     fun config() = CrateDataSyncService.cached()
     fun allCrates() = config().crates.values
+    fun allCratesScoped() = config().crates.values.filter { it.group == null || ServerSync.local.groups.contains(it.group) }
 
     private val lastInteract = mutableMapOf<UUID, Long>()
 
@@ -148,7 +150,7 @@ object CrateService
 
     fun reinitializeCrates()
     {
-        allCrates().forEach { crate ->
+        allCratesScoped().forEach { crate ->
             crate.initializeBukkit()
         }
     }
