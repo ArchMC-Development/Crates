@@ -1,13 +1,10 @@
 package gg.scala.crates
 
 import gg.scala.commons.ExtendedScalaPlugin
+import gg.scala.commons.annotations.container.ContainerDisable
 import gg.scala.commons.annotations.container.ContainerEnable
-import gg.scala.commons.core.plugin.Plugin
-import gg.scala.commons.core.plugin.PluginApiVersion
-import gg.scala.commons.core.plugin.PluginAuthor
-import gg.scala.commons.core.plugin.PluginDependency
-import gg.scala.commons.core.plugin.PluginDependencyComposite
-import gg.scala.commons.core.plugin.PluginWebsite
+import gg.scala.commons.core.plugin.*
+import gg.scala.crates.crate.CrateService
 import gg.scala.crates.keys.DefaultKeyProvider
 import gg.scala.crates.keys.KeyProvider
 import gg.scala.crates.placeholder.CratePlaceholder
@@ -43,6 +40,14 @@ class CratesSpigotPlugin : ExtendedScalaPlugin()
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
         {
             CratePlaceholder().register()
+        }
+    }
+
+    @ContainerDisable
+    fun containerDisable()
+    {
+        CrateService.allCrates().forEach {
+            it.decommissionBukkit()
         }
     }
 }
