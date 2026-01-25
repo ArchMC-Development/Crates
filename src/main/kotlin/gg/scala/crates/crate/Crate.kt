@@ -42,7 +42,6 @@ data class Crate(
                     entity.persistent = false
 
                     entity.initializeData()
-                    EntityHandler.trackEntity(entity)
                 }
         }
     }
@@ -52,7 +51,6 @@ data class Crate(
         if (hologram != null)
         {
             hologram!!.destroyForCurrentWatchers()
-            EntityHandler.forgetEntity(hologram!!)
         }
     }
 }
