@@ -46,7 +46,7 @@ class CratesSpigotPlugin : ExtendedScalaPlugin()
     @ContainerDisable
     fun containerDisable()
     {
-        CrateService.allCrates().forEach {
+        CrateService.allCratesScoped().forEach {
             it.decommissionBukkit()
         }
     }

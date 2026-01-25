@@ -17,6 +17,8 @@ import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.service.Configure
 import gg.scala.flavor.service.Service
 import me.lucko.helper.Events
+import me.lucko.helper.hologram.Hologram
+import net.evilblock.cubed.entity.hologram.HologramEntity
 import net.evilblock.cubed.serializers.Serializers
 import net.evilblock.cubed.serializers.impl.AbstractTypeSerializer
 import net.evilblock.cubed.util.CC
@@ -37,6 +39,8 @@ object CrateService
 {
     @Inject
     lateinit var plugin: CratesSpigotPlugin
+
+    val crateHolograms = mutableMapOf<String, HologramEntity>()
 
     fun config() = CrateDataSyncService.cached()
     fun allCrates() = config().crates.values

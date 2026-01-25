@@ -5,6 +5,7 @@ import net.evilblock.cubed.entity.EntityHandler
 import net.evilblock.cubed.entity.hologram.HologramEntity
 import net.evilblock.cubed.util.CC
 import org.bukkit.Location
+import kotlin.collections.set
 
 /**
  * @author GrowlyX
@@ -28,8 +29,6 @@ data class Crate(
     var group: String? = null
 )
 {
-    @Transient
-    var hologram: HologramEntity? = null
 
     fun initializeBukkit()
     {
@@ -37,21 +36,25 @@ data class Crate(
 
         if (physicalLocation != null && isHologramEnabled)
         {
-            hologram = HologramEntity(displayName, physicalLocation!!.clone().add(0.5, 1.5, 0.5))
+            CrateService.crateHolograms[uniqueId] = HologramEntity(displayName, physicalLocation!!.clone().add(0.5, 1.5, 0.5))
                 .also { entity ->
                     entity.updateLines(hologramLines)
                     entity.persistent = false
 
                     entity.initializeData()
+                    EntityHandler.trackEntity(entity)
                 }
         }
     }
 
     fun decommissionBukkit()
     {
+        val hologram = CrateService.crateHolograms[uniqueId]
+
         if (hologram != null)
         {
-            hologram!!.destroyForCurrentWatchers()
+            hologram.destroyForCurrentWatchers()
+            EntityHandler.forgetEntity(hologram)
         }
     }
 }
