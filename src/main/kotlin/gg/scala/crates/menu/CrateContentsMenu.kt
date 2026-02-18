@@ -32,7 +32,7 @@ class CrateContentsMenu(
             val itemsPerRow = 7
             val rowsNeeded = ((itemCount + itemsPerRow - 1) / itemsPerRow).coerceAtLeast(1)
 
-            val totalRows = rowsNeeded + 3
+            val totalRows = rowsNeeded + 2
 
             return (totalRows * 9).coerceAtMost(54)
         } else
