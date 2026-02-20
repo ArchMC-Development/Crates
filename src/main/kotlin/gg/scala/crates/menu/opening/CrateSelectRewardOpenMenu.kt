@@ -20,7 +20,6 @@ class CrateSelectRewardOpenMenu(
 {
     init
     {
-        autoUpdateInterval = 100L
         keepBottomMechanics = false
     }
 
@@ -71,12 +70,6 @@ class CrateSelectRewardOpenMenu(
     {
         if (manualClose)
         {
-            if (this.autoUpdateInterval >= 400)
-            {
-                configuration.crateWinRefundFailure.sendToPlayer(player)
-                return
-            }
-
             configuration.crateWinRefundSuccess.sendToPlayer(player)
             this.refundCrateKey(player)
         }
