@@ -52,6 +52,7 @@ class CrateSelectRewardOpenMenu(
                     this.glow()
                 }
                 .toButton { _, _ ->
+                    player.closeInventory()
                     it.apply(player)
 
                     configuration.crateWin.sendToPlayer(
@@ -59,7 +60,6 @@ class CrateSelectRewardOpenMenu(
                     )
 
                     player.playSound(player.location, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0F, 1.0F)
-                    player.closeInventory()
                 }
         }
 
