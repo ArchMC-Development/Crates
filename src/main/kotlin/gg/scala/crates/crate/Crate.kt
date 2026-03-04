@@ -4,6 +4,7 @@ import gg.scala.crates.crate.prize.CratePrize
 import net.evilblock.cubed.entity.EntityHandler
 import net.evilblock.cubed.entity.hologram.HologramEntity
 import net.evilblock.cubed.util.CC
+import net.evilblock.cubed.util.bukkit.Constants
 import org.bukkit.Location
 import kotlin.collections.set
 
@@ -21,9 +22,10 @@ data class Crate(
     var shouldCompressMenu: Boolean = false,
     var hologramLines: MutableList<String> = mutableListOf(
         displayName,
+        "${CC.GRAY}[/store]",
         "",
-        "${CC.WHITE}Left-Click to preview crate",
-        "${CC.WHITE}Right-Click to open crate",
+        "${CC.D_RED}${Constants.TRIANGLE_ARROW_LEFT} ${CC.WHITE}Left-Click to preview",
+        "${CC.D_RED}${Constants.TRIANGLE_ARROW_RIGHT} ${CC.WHITE}Right-Click to open",
     ),
     var physicalLocation: Location? = null,
     var group: String? = null
